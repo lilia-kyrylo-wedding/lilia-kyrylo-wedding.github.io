@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Лілія & Кирило · 07.06.2027</title>
+<meta name="description" content="Запрошуємо на наше весілля 7 червня 2027 року, Pałac Pstrokonie">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+  /* ===== Палітра: міняйте лише ці змінні ===== */
+  :root {
+    --bg: #faf7f2;          /* фон */
+    --paper: #ffffff;       /* картки */
+    --ink: #3b3a36;         /* основний текст */
+    --muted: #8a857b;       /* другорядний текст */
+    --accent: #7d8c6e;      /* акцент (шавлія) */
+    --accent-soft: #e8ebe2;
+    --line: #e4ddd1;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --script: "Marck Script", "Cormorant Garamond", cursive;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--serif); font-size: 20px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); }
+  .todo { background: #fff3b0; outline: 1px dashed #d9b400; padding: 0 .2em; border-radius: 3px; }
+
+  /* Навігація */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(250,247,242,.92); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav ul {
+    list-style: none; margin: 0 auto; padding: 0 16px; max-width: 980px;
+    display: flex; gap: 22px; overflow-x: auto; white-space: nowrap;
+    scrollbar-width: none;
+  }
+  nav ul::-webkit-scrollbar { display: none; }
+  nav a {
+    display: block; padding: 14px 0; text-decoration: none; color: var(--muted);
+    font-size: 15px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  nav a:hover { color: var(--ink); }
+
+  /* Головний екран */
+  .hero {
+    min-height: 92vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 60px 20px;
+  }
+  .monogram {
+    width: 92px; height: 92px; border: 1px solid var(--accent); border-radius: 50%;
+    display: grid; place-items: center; margin-bottom: 36px;
+    font-family: var(--script); font-size: 38px; color: var(--accent);
+  }
+  .kicker { letter-spacing: .3em; text-transform: uppercase; font-size: 14px; color: var(--muted); }
+  .names {
+    font-family: var(--script); font-weight: 400; color: var(--ink);
+    font-size: clamp(64px, 13vw, 128px); line-height: 1.05; margin: 18px 0 10px;
+  }
+  .names .amp { color: var(--accent); font-size: .7em; padding: 0 .1em; }
+  .date-line {
+    display: flex; align-items: center; gap: 18px; justify-content: center;
+    font-size: clamp(20px, 3.4vw, 26px); letter-spacing: .14em;
+  }
+  .date-line span.sep { width: 46px; height: 1px; background: var(--line); }
+  .place { color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  .countdown { display: flex; gap: 14px; margin-top: 44px; justify-content: center; }
+  .countdown div {
+    min-width: 76px; padding: 12px 8px; border: 1px solid var(--line);
+    background: var(--paper); border-radius: 2px;
+  }
+  .countdown b { display: block; font-size: 32px; font-weight: 400; line-height: 1.1; }
+  .countdown small { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+  /* Секції */
+  section { padding: 84px 20px; }
+  section:nth-of-type(even) { background: var(--paper); }
+  .wrap { max-width: 720px; margin: 0 auto; text-align: center; }
+  h2 {
+    font-family: var(--script); font-weight: 400; color: var(--accent);
+    font-size: clamp(42px, 7vw, 58px); margin: 0 0 8px; line-height: 1.1;
+  }
+  .ornament { width: 60px; height: 1px; background: var(--accent); margin: 0 auto 30px; opacity: .6; }
+  .lead { font-size: clamp(22px, 3.2vw, 27px); font-weight: 300; }
+  p { margin: 0 0 1em; }
+
+  /* Програма */
+  .timeline { list-style: none; padding: 0; margin: 10px auto 0; max-width: 460px; text-align: left; }
+  .timeline li {
+    display: grid; grid-template-columns: 76px 1fr; gap: 18px;
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+  }
+  .timeline li:last-child { border-bottom: 0; }
+  .timeline time { font-size: 24px; color: var(--accent); }
+
+  /* Місце */
+  .venue-name { font-size: 28px; margin-bottom: 0; }
+  .map {
+    width: 100%; aspect-ratio: 16/10; border: 1px solid var(--line); margin: 26px 0 18px;
+    background: var(--accent-soft);
+  }
+  .map iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .btn {
+    display: inline-block; padding: 12px 30px; border: 1px solid var(--accent);
+    color: var(--accent); text-decoration: none; letter-spacing: .14em;
+    text-transform: uppercase; font-size: 14px; font-family: var(--serif);
+    background: transparent; cursor: pointer; transition: .2s;
+  }
+  .btn:hover, .btn.solid { background: var(--accent); color: #fff; }
+  .btn.solid:hover { opacity: .9; }
+  .info-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); text-align: left; margin-top: 30px; }
+  .info-grid div { padding: 20px; border: 1px solid var(--line); background: var(--bg); }
+  .info-grid h3 { margin: 0 0 6px; font-weight: 500; font-size: 20px; }
+  .info-grid p { margin: 0; font-size: 18px; color: var(--muted); }
+
+  /* Дрес-код */
+  .swatches { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 24px 0; }
+  .swatches span { width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--line); }
+
+  /* RSVP */
+  form { text-align: left; max-width: 520px; margin: 26px auto 0; }
+  label { display: block; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 18px 0 6px; }
+  input[type=text], input[type=number], textarea, select {
+    width: 100%; padding: 12px 14px; font: inherit; font-size: 19px; color: var(--ink);
+    border: 1px solid var(--line); background: var(--bg); border-radius: 0;
+  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
+  .choice { display: flex; gap: 10px; flex-wrap: wrap; }
+  .choice label {
+    text-transform: none; letter-spacing: 0; font-size: 19px; color: var(--ink);
+    margin: 0; padding: 10px 16px; border: 1px solid var(--line); cursor: pointer; flex: 1; text-align: center;
+  }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice input:checked + span { color: var(--accent); }
+  .choice label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+  .if-yes[hidden] { display: none; }
+  form .btn { margin-top: 28px; width: 100%; padding: 15px; }
+  .form-msg { margin-top: 18px; text-align: center; font-size: 19px; }
+  .deadline { color: var(--muted); font-style: italic; }
+
+  footer { text-align: center; padding: 50px 20px 60px; color: var(--muted); font-size: 17px; }
+  footer .names { font-size: 44px; margin: 0 0 6px; }
+
+  @media (max-width: 520px) {
+    body { font-size: 19px; }
+    section { padding: 64px 18px; }
+    .countdown div { min-width: 64px; }
+    .countdown b { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="#zaproshennia">Запрошення</a></li>
+    <li><a href="#programa">Програма</a></li>
+    <li><a href="#mistse">Місце</a></li>
+    <li><a href="#dres-kod">Дрес-код</a></li>
+    <li><a href="#format">Формат свята</a></li>
+    <li><a href="#podarunky">Подарунки</a></li>
+    <li><a href="#nochivlia">Ночівля</a></li>
+    <li><a href="#rsvp">Відповісти</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="monogram">LK</div>
+  <div class="kicker">Запрошуємо на весілля</div>
+  <h1 class="names">Лілія <span class="amp">&amp;</span> Кирило</h1>
+  <div class="date-line"><span class="sep"></span>07 · 06 · 2027<span class="sep"></span></div>
+  <div class="place">Pałac Pstrokonie · 15:00</div>
+  <div class="countdown" id="countdown" aria-label="Зворотний відлік">
+    <div><b id="cd-d">–</b><small>днів</small></div>
+    <div><b id="cd-h">–</b><small>годин</small></div>
+    <div><b id="cd-m">–</b><small>хвилин</small></div>
+  </div>
+</header>
+
+<section id="zaproshennia">
+  <div class="wrap">
+    <h2>Дорогі гості</h2>
+    <div class="ornament"></div>
+    <p class="lead">Скоро настане день, на який ми чекали з особливим хвилюванням, — день нашого весілля. Будемо раді розділити з вами його емоції.</p>
+    <p>Чекаємо на вас <b>7 червня 2027 року о 15:00</b> у палаці Pstrokonie.</p>
+  </div>
+</section>
+
+<section id="programa">
+  <div class="wrap">
+    <h2>Програма дня</h2>
+    <div class="ornament"></div>
+    <ul class="timeline">
+      <li><time>14:30</time><div><span class="todo">Збір гостей, welcome-напої</span></div></li>
+      <li><time>15:00</time><div>Церемонія</div></li>
+      <li><time><span class="todo">16:00</span></time><div><span class="todo">Привітання та фотосесія</span></div></li>
+      <li><time><span class="todo">17:00</span></time><div><span class="todo">Святкова вечеря</span></div></li>
+      <li><time><span class="todo">20:00</span></time><div><span class="todo">Перший танець і вечірка</span></div></li>
+      <li><time><span class="todo">22:00</span></time><div><span class="todo">Весільний торт</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section id="mistse">
+  <div class="wrap">
+    <h2>Місце</h2>
+    <div class="ornament"></div>
+    <p class="venue-name">Pałac Pstrokonie</p>
+    <p class="place">Pstrokonie 89, Zapolice, Польща</p>
+    <div class="map">
+      <iframe title="Карта: Pałac Pstrokonie" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Pa%C5%82ac%20Pstrokonie%2C%20Pstrokonie%2089%2C%20Zapolice&z=13&output=embed"></iframe>
+    </div>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pa%C5%82ac%20Pstrokonie%2C%20Pstrokonie%2089%2C%20Zapolice" target="_blank" rel="noopener">Відкрити маршрут</a>
+    <div class="info-grid">
+      <div><h3>Автомобілем</h3><p><span class="todo">Біля палацу є безкоштовний паркінг.</span></p></div>
+      <div><h3>Трансфер</h3><p><span class="todo">Організуємо автобус з … о … — відмітьте у формі, якщо потрібно.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="dres-kod">
+  <div class="wrap">
+    <h2>Дрес-код</h2>
+    <div class="ornament"></div>
+    <p><span class="todo">Будемо раді, якщо ви підтримаєте палітру нашого свята:</span></p>
+    <div class="swatches">
+      <span style="background:#e9e2d4"></span>
+      <span style="background:#c9b99a"></span>
+      <span style="background:#9aa58a"></span>
+      <span style="background:#6d7a5f"></span>
+      <span style="background:#4a4a44"></span>
+    </div>
+    <p class="deadline">Просимо уникати білого кольору — він для нареченої.</p>
+  </div>
+</section>
+
+<section id="format">
+  <div class="wrap">
+    <h2>Формат свята</h2>
+    <div class="ornament"></div>
+    <p class="lead">Наше свято буде гучним і триватиме до пізньої ночі, тому ми вирішили зробити його лише для дорослих. Дякуємо за розуміння!</p>
+  </div>
+</section>
+
+<section id="podarunky">
+  <div class="wrap">
+    <h2>Подарунки</h2>
+    <div class="ornament"></div>
+    <p class="lead"><span class="todo">Найцінніше для нас — розділити цей день із вами. Якщо захочете нас привітати, будемо вдячні за грошовий подарунок. І просимо не дарувати квітів.</span></p>
+  </div>
+</section>
+
+<section id="nochivlia">
+  <div class="wrap">
+    <h2>Ночівля</h2>
+    <div class="ornament"></div>
+    <p><span class="todo">Для гостей заброньовані номери в палаці. Якщо плануєте залишитися на ніч, відмітьте це у формі — ми все організуємо.</span></p>
+  </div>
+</section>
+
+<section id="rsvp">
+  <div class="wrap">
+    <h2>Ви з нами?</h2>
+    <div class="ornament"></div>
+    <p>Будь ласка, підтвердіть свою присутність <b>до <span class="todo">1 квітня 2027</span></b>.</p>
+
+    <!-- Formspree: mgaklyzn -->
+    <form id="rsvp-form" action="https://formspree.io/f/mgaklyzn" method="POST">
+      <label for="f-name">Ваше ім'я та прізвище</label>
+      <input id="f-name" name="Імʼя" type="text" required autocomplete="name">
+
+      <label>Чи будете на святі?</label>
+      <div class="choice">
+        <label><input type="radio" name="Присутність" value="Так, буду" required><span>Так, буду</span></label>
+        <label><input type="radio" name="Присутність" value="На жаль, не зможу"><span>На жаль, не зможу</span></label>
+      </div>
+
+      <div class="if-yes" hidden>
+        <label for="f-guest">Імʼя супутника (якщо є)</label>
+        <input id="f-guest" name="Супутник" type="text">
+
+        <label>Потрібен трансфер?</label>
+        <div class="choice">
+          <label><input type="radio" name="Трансфер" value="Так"><span>Так</span></label>
+          <label><input type="radio" name="Трансфер" value="Ні"><span>Ні</span></label>
+        </div>
+
+        <label>Залишитеся на ніч?</label>
+        <div class="choice">
+          <label><input type="radio" name="Ночівля" value="Так"><span>Так</span></label>
+          <label><input type="radio" name="Ночівля" value="Ні"><span>Ні</span></label>
+        </div>
+
+        <label for="f-food">Особливості харчування, алергії</label>
+        <input id="f-food" name="Харчування" type="text" placeholder="Наприклад: вегетаріанське меню">
+      </div>
+
+      <label for="f-msg">Побажання молодятам</label>
+      <textarea id="f-msg" name="Побажання" rows="3"></textarea>
+
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <button class="btn solid" type="submit">Надіслати</button>
+      <div class="form-msg" id="form-msg" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="names">Лілія &amp; Кирило</div>
+  <div>07.06.2027 · Pałac Pstrokonie</div>
+  <div style="margin-top:14px"><span class="todo">Питання? Пишіть нам: телефон / Telegram</span></div>
+</footer>
+
+<script>
+  // Зворотний відлік (час Варшави, літній: UTC+2)
+  (function () {
+    var target = new Date("2027-06-07T15:00:00+02:00").getTime();
+    function tick() {
+      var diff = Math.max(0, target - Date.now());
+      var d = Math.floor(diff / 864e5), h = Math.floor(diff % 864e5 / 36e5), m = Math.floor(diff % 36e5 / 6e4);
+      document.getElementById("cd-d").textContent = d;
+      document.getElementById("cd-h").textContent = h;
+      document.getElementById("cd-m").textContent = m;
+    }
+    tick(); setInterval(tick, 30000);
+  })();
+
+  // Форма: показувати додаткові поля лише для тих, хто прийде
+  (function () {
+    var form = document.getElementById("rsvp-form");
+    var yesBlock = form.querySelector(".if-yes");
+    var msg = document.getElementById("form-msg");
+    form.querySelectorAll('input[name="Присутність"]').forEach(function (r) {
+      r.addEventListener("change", function () { yesBlock.hidden = r.value !== "Так, буду" || !r.checked; });
+    });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (form.action.indexOf("YOUR_FORM_ID") !== -1) {
+        msg.textContent = "Форма ще не підключена (потрібен ID з Formspree).";
+        return;
+      }
+      var btn = form.querySelector("button"); btn.disabled = true;
+      msg.textContent = "Надсилаємо…";
+      fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+        .then(function (r) {
+          if (!r.ok) throw new Error();
+          var yes = form.querySelector('input[name="Присутність"]:checked');
+          form.reset(); yesBlock.hidden = true;
+          msg.textContent = yes && yes.value === "Так, буду" ? "Дякуємо! Чекаємо на вас 7 червня 🤍" : "Дякуємо, що повідомили! Нам буде вас бракувати.";
+        })
+        .catch(function () { msg.textContent = "Не вдалося надіслати. Спробуйте ще раз або напишіть нам."; })
+        .finally(function () { btn.disabled = false; });
+    });
+  })();
+</script>
+</body>
+</html>
