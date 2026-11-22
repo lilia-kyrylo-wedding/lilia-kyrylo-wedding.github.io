@@ -7,8 +7,14 @@
 <meta name="description" content="Запрошуємо на наше весілля 7 червня 2027 року, Pałac Pstrokonie">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Marck+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Marck+Script&display=swap" rel="stylesheet">
 <style>
+  /* Anastasia Script (лише латиниця) — для монограми LK та «&» */
+  @font-face {
+    font-family: "Anastasia Script";
+    src: url("fonts/Anastasia%20Script%20Personal%20Use.ttf") format("truetype");
+    font-display: swap;
+  }
   /* ===== Палітра: міняйте лише ці змінні ===== */
   :root {
     --bg: #faf7f2;          /* фон */
@@ -18,8 +24,9 @@
     --accent: #7d8c6e;      /* акцент (шавлія) */
     --accent-soft: #e8ebe2;
     --line: #e4ddd1;
-    --serif: "Cormorant Garamond", Georgia, serif;
-    --script: "Marck Script", "Cormorant Garamond", cursive;
+    --serif: "EB Garamond", Georgia, serif;   /* основний текст (Crimson без кирилиці в Google Fonts) */
+    --script: "Marck Script", cursive;   /* заголовки (кирилиця) */
+    --latin-script: "Anastasia Script", "Marck Script", cursive;   /* монограма, & */
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -58,14 +65,14 @@
   .monogram {
     width: 92px; height: 92px; border: 1px solid var(--accent); border-radius: 50%;
     display: grid; place-items: center; margin-bottom: 36px;
-    font-family: var(--script); font-size: 38px; color: var(--accent);
+    font-family: var(--latin-script); font-size: 44px; color: var(--accent);
   }
   .kicker { letter-spacing: .3em; text-transform: uppercase; font-size: 14px; color: var(--muted); }
   .names {
     font-family: var(--script); font-weight: 400; color: var(--ink);
     font-size: clamp(64px, 13vw, 128px); line-height: 1.05; margin: 18px 0 10px;
   }
-  .names .amp { color: var(--accent); font-size: .7em; padding: 0 .1em; }
+  .names .amp { font-family: var(--latin-script); color: var(--accent); font-size: .8em; padding: 0 .12em; }
   .date-line {
     display: flex; align-items: center; gap: 18px; justify-content: center;
     font-size: clamp(20px, 3.4vw, 26px); letter-spacing: .14em;
@@ -147,6 +154,15 @@
   .form-msg { margin-top: 18px; text-align: center; font-size: 19px; }
   .deadline { color: var(--muted); font-style: italic; }
 
+  .when { font-size: 23px; margin-top: 28px; }
+  .muted { color: var(--muted); }
+  .signature { margin-top: 30px; font-style: italic; color: var(--muted); }
+  .signature span { display: inline-block; margin-top: 4px; font-family: var(--script); font-style: normal; font-size: 40px; color: var(--ink); }
+  .dress { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 6px; }
+  .dress > div { padding: 26px 20px 10px; border: 1px solid var(--line); background: var(--bg); }
+  .dress h3 { font-family: var(--script); font-weight: 400; font-size: 36px; margin: 0 0 6px; color: var(--accent); }
+  .dress .swatches span { width: 40px; height: 40px; }
+
   footer { text-align: center; padding: 50px 20px 60px; color: var(--muted); font-size: 17px; }
   footer .names { font-size: 44px; margin: 0 0 6px; }
 
@@ -163,13 +179,14 @@
 <nav>
   <ul>
     <li><a href="#zaproshennia">Запрошення</a></li>
-    <li><a href="#programa">Програма</a></li>
-    <li><a href="#mistse">Місце</a></li>
+    <li><a href="#taiminh">Таймінг</a></li>
+    <li><a href="#mistse">Місце і транспорт</a></li>
+    <li><a href="#rozselennia">Розселення</a></li>
     <li><a href="#dres-kod">Дрес-код</a></li>
     <li><a href="#format">Формат свята</a></li>
     <li><a href="#podarunky">Подарунки</a></li>
-    <li><a href="#nochivlia">Ночівля</a></li>
     <li><a href="#rsvp">Відповісти</a></li>
+    <li><a href="#kontakt">Контакт</a></li>
   </ul>
 </nav>
 
@@ -190,17 +207,18 @@
   <div class="wrap">
     <h2>Дорогі гості</h2>
     <div class="ornament"></div>
-    <p class="lead">Скоро настане день, на який ми чекали з особливим хвилюванням, — день нашого весілля. Будемо раді розділити з вами його емоції.</p>
-    <p>Чекаємо на вас <b>7 червня 2027 року о 15:00</b> у палаці Pstrokonie.</p>
+    <p class="lead">Скоро настане день, на&nbsp;який ми чекали з&nbsp;особливим хвилюванням — день нашого весілля. Будемо раді розділити з&nbsp;вами його емоції.</p>
+    <p class="when"><b>7 червня 2027 о 15:00</b><br>Pałac Pstrokonie<br><span class="muted">Pstrokonie 89, Zapolice</span></p>
+    <p class="signature">з любов’ю,<br><span>Лілія і Кирило</span></p>
   </div>
 </section>
 
-<section id="programa">
+<section id="taiminh">
   <div class="wrap">
-    <h2>Програма дня</h2>
+    <h2>Таймінг</h2>
     <div class="ornament"></div>
     <ul class="timeline">
-      <li><time>14:30</time><div><span class="todo">Збір гостей, welcome-напої</span></div></li>
+      <li><time><span class="todo">14:30</span></time><div><span class="todo">Збір гостей</span></div></li>
       <li><time>15:00</time><div>Церемонія</div></li>
       <li><time><span class="todo">16:00</span></time><div><span class="todo">Привітання та фотосесія</span></div></li>
       <li><time><span class="todo">17:00</span></time><div><span class="todo">Святкова вечеря</span></div></li>
@@ -212,7 +230,7 @@
 
 <section id="mistse">
   <div class="wrap">
-    <h2>Місце</h2>
+    <h2>Місце і транспорт</h2>
     <div class="ornament"></div>
     <p class="venue-name">Pałac Pstrokonie</p>
     <p class="place">Pstrokonie 89, Zapolice, Польща</p>
@@ -222,9 +240,17 @@
     </div>
     <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pa%C5%82ac%20Pstrokonie%2C%20Pstrokonie%2089%2C%20Zapolice" target="_blank" rel="noopener">Відкрити маршрут</a>
     <div class="info-grid">
-      <div><h3>Автомобілем</h3><p><span class="todo">Біля палацу є безкоштовний паркінг.</span></p></div>
-      <div><h3>Трансфер</h3><p><span class="todo">Організуємо автобус з … о … — відмітьте у формі, якщо потрібно.</span></p></div>
+      <div><h3>Автомобілем</h3><p><span class="todo">Паркінг: …</span></p></div>
+      <div><h3>Трансфер</h3><p><span class="todo">Звідки, о котрій, повернення — …</span></p></div>
     </div>
+  </div>
+</section>
+
+<section id="rozselennia">
+  <div class="wrap">
+    <h2>Розселення</h2>
+    <div class="ornament"></div>
+    <p><span class="todo">Де ночують гості, хто бронює, ціна/хто платить, заїзд і виїзд — …</span></p>
   </div>
 </section>
 
@@ -232,15 +258,28 @@
   <div class="wrap">
     <h2>Дрес-код</h2>
     <div class="ornament"></div>
-    <p><span class="todo">Будемо раді, якщо ви підтримаєте палітру нашого свята:</span></p>
-    <div class="swatches">
-      <span style="background:#e9e2d4"></span>
-      <span style="background:#c9b99a"></span>
-      <span style="background:#9aa58a"></span>
-      <span style="background:#6d7a5f"></span>
-      <span style="background:#4a4a44"></span>
+    <div class="dress">
+      <div>
+        <h3>Дівчата</h3>
+        <p>однотонні, елегантні сукні коричневого, оливкового, срібного, сірого або чорного відтінків</p>
+        <div class="swatches">
+          <span title="коричневий" style="background:#6b4a33"></span>
+          <span title="оливковий" style="background:#6b6b3a"></span>
+          <span title="срібний" style="background:linear-gradient(135deg,#e6e6e6,#a9a9a9 55%,#d8d8d8)"></span>
+          <span title="сірий" style="background:#8a8a86"></span>
+          <span title="чорний" style="background:#1f1f1f"></span>
+        </div>
+      </div>
+      <div>
+        <h3>Хлопці</h3>
+        <p>елегантні костюми коричневого, сірого або чорного відтінку</p>
+        <div class="swatches">
+          <span title="коричневий" style="background:#6b4a33"></span>
+          <span title="сірий" style="background:#8a8a86"></span>
+          <span title="чорний" style="background:#1f1f1f"></span>
+        </div>
+      </div>
     </div>
-    <p class="deadline">Просимо уникати білого кольору — він для нареченої.</p>
   </div>
 </section>
 
@@ -256,15 +295,7 @@
   <div class="wrap">
     <h2>Подарунки</h2>
     <div class="ornament"></div>
-    <p class="lead"><span class="todo">Найцінніше для нас — розділити цей день із вами. Якщо захочете нас привітати, будемо вдячні за грошовий подарунок. І просимо не дарувати квітів.</span></p>
-  </div>
-</section>
-
-<section id="nochivlia">
-  <div class="wrap">
-    <h2>Ночівля</h2>
-    <div class="ornament"></div>
-    <p><span class="todo">Для гостей заброньовані номери в палаці. Якщо плануєте залишитися на ніч, відмітьте це у формі — ми все організуємо.</span></p>
+    <p class="lead">Квітами наше свято вже прикрасили, тож букетів, будь ласка, не даруйте. А якщо думаєте про подарунок — будемо вдячні за грошовий і обіцяємо знайти йому гарне застосування.</p>
   </div>
 </section>
 
@@ -315,10 +346,20 @@
   </div>
 </section>
 
+<section id="kontakt">
+  <div class="wrap">
+    <h2>Контакт організатора</h2>
+    <div class="ornament"></div>
+    <p>З усіх питань щодо весілля звертайтеся до нашого організатора:</p>
+    <p class="venue-name"><span class="todo">Імʼя</span></p>
+    <p><span class="todo">телефон · Telegram / WhatsApp</span></p>
+  </div>
+</section>
+
 <footer>
   <div class="names">Лілія &amp; Кирило</div>
   <div>07.06.2027 · Pałac Pstrokonie</div>
-  <div style="margin-top:14px"><span class="todo">Питання? Пишіть нам: телефон / Telegram</span></div>
+
 </footer>
 
 <script>
