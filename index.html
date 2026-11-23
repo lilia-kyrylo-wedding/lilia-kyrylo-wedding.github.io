@@ -180,6 +180,20 @@
   .pola.p3 { left: 5%; top: 262px; --r: 4deg;  --fx: -70px; --dl: .55s; z-index: 3; }
   .pola.p4 { right: 3%; top: 292px; --r: -4deg; --fx: 70px; --dl: .8s;  z-index: 4; }
 
+
+  /* відлік */
+  .countdown { position: relative; margin: 0 14px 22px; padding: 46px 18px 40px; text-align: center; overflow: hidden; color: var(--brown); }
+  .countdown::before { content: ""; position: absolute; inset: -14px; z-index: -2;
+    background: url("liner.webp") center 46% / 165% auto no-repeat; filter: blur(2.5px) saturate(.85); }
+  .countdown::after { content: ""; position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(75% 70% at 50% 50%, rgba(247,248,240,.72), rgba(247,248,240,.45) 70%, rgba(247,248,240,.2)); }
+  .countdown h2 { font-family: var(--script); font-weight: 400; font-size: 40px; line-height: 1.1; margin: 0 0 18px; }
+  .cd { display: flex; justify-content: center; gap: 6px; }
+  .cd div { flex: 1; max-width: 92px; padding: 12px 2px 10px; background: rgba(247,248,240,.78); border: 1px solid rgba(68,45,49,.15); }
+  .cd b { display: block; font-family: var(--serif); font-weight: 400; font-size: 34px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .cd span { display: block; margin-top: 6px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .countdown .cd-done { font-family: var(--script); font-size: 34px; margin: 0; }
+
   /* ================= КАРТКИ З ДЕТАЛЯМИ ================= */
   .lace-divider { height: 22px; margin: 0 0 26px; background: url("lace-edge.webp") center top / auto 100% repeat-x; opacity: .9; filter: drop-shadow(0 1px 1px rgba(0,0,0,.15)); }
   .sheet {
@@ -259,7 +273,6 @@
   .contact a { text-decoration: none; border-bottom: 1px solid currentColor; }
   footer { text-align: center; padding: 26px 20px calc(110px + env(safe-area-inset-bottom)); color: var(--muted); font-size: 15px; }
   footer img { width: 92px; display: block; margin: 0 auto 10px; }
-  footer button { background: none; border: 0; color: var(--muted); font: 14px var(--serif); text-decoration: underline; cursor: pointer; margin-top: 10px; }
 
   .rsvp-bar {
     position: fixed; z-index: 20; left: 50%; bottom: max(14px, env(safe-area-inset-bottom));
@@ -342,6 +355,16 @@
 
 <main>
 
+
+  <section class="countdown fade" id="vidlik" aria-label="Відлік до весілля">
+    <h2>До весілля залишилось</h2>
+    <div class="cd" id="cd">
+      <div><b data-u="m">–</b><span>місяців</span></div>
+      <div><b data-u="d">–</b><span>днів</span></div>
+      <div><b data-u="h">–</b><span>годин</span></div>
+      <div><b data-u="i">–</b><span>хвилин</span></div>
+    </div>
+  </section>
 
   <section class="sheet fade" id="taiminh">
     <h2>Таймінг</h2><div class="orn"></div>
@@ -443,7 +466,6 @@
 <footer>
   <img src="emblem.webp" alt="LK">
   Лілія &amp; Кирило · 07.06.2027
-  <br><button type="button" id="replay">Відкрити конверт ще раз</button>
 </footer>
 
 <a class="rsvp-bar" id="rsvp-bar" href="#rsvp">Відповісти</a>
@@ -540,15 +562,8 @@ var LAYOUT = {"insert":{"x":-0.007,"y":0.153,"s":1,"r":0},"env":{"x":-0.007,"y":
     timers.push(setTimeout(function () { hero.classList.add("s3"); }, 2400));
     try { localStorage.setItem(KEY, "1"); } catch (e) {}
   }
-  function reset() {
-    timers.forEach(clearTimeout); timers = []; running = false;
-    hero.classList.add("instant"); hero.classList.remove("opened", "s2", "s3");
-    window.scrollTo(0, 0);
-    requestAnimationFrame(function () { requestAnimationFrame(function () { hero.classList.remove("instant"); }); });
-  }
   env.addEventListener("click", function () { open(false); });
   env.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(false); } });
-  document.getElementById("replay").addEventListener("click", reset);
 
   var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced) open(true);
@@ -566,6 +581,23 @@ var LAYOUT = {"insert":{"x":-0.007,"y":0.153,"s":1,"r":0},"env":{"x":-0.007,"y":
     bar.classList.toggle("show", window.scrollY > hero.offsetHeight * .7 && !nearForm);
   }
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+
+  // відлік до 7.06.2027 15:00 (Варшава, UTC+2)
+  (function () {
+    var T = Date.UTC(2027, 5, 7, 13, 0), box = document.getElementById("cd");
+    var F = { m: ["місяць","місяці","місяців"], d: ["день","дні","днів"], h: ["година","години","годин"], i: ["хвилина","хвилини","хвилин"] };
+    function form(n, f) { var a = n % 10, b = n % 100; return f[a === 1 && b !== 11 ? 0 : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 1 : 2]; }
+    function tick() {
+      var now = Date.now();
+      if (now >= T) { box.outerHTML = '<p class="cd-done">Сьогодні наш день!</p>'; return; }
+      var c = new Date(now), m = 0;
+      while (true) { var n = new Date(c); n.setUTCMonth(n.getUTCMonth() + 1); if (n.getTime() > T) break; c = n; m++; }
+      var r = Math.floor((T - c.getTime()) / 60000), v = { m: m, d: Math.floor(r / 1440), h: Math.floor(r % 1440 / 60), i: r % 60 };
+      Object.keys(v).forEach(function (k) { var el = box.querySelector('[data-u="' + k + '"]'); el.textContent = v[k]; el.nextElementSibling.textContent = form(v[k], F[k]); });
+    }
+    tick(); setInterval(tick, 15000);
+  })();
 
   // форма
   var form = document.getElementById("rsvp-form"), msg = document.getElementById("form-msg");
