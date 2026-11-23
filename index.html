@@ -130,7 +130,10 @@
     filter: drop-shadow(0 8px 10px rgba(40,20,22,.18)); }
   .fl.a { right: -9%; bottom: -10%; width: 34%; }
   .fl.b { left: -11%; bottom: -16%; width: 40%; }
-  .fl.c { left: -10%; bottom: -10%; width: 32%; }
+  .fl.c { left: -10%; bottom: -6%; width: 46%; }
+  .glasses { display: flex; align-items: flex-end; }
+  .glasses img { width: 55%; height: auto; display: block; }
+  .glasses img + img { margin-left: -14%; margin-bottom: 4%; }
   .opened.s3 .fl { opacity: 1; transform: none; }
   .opened.s3 .fl.c { transition-delay: .7s; }
   .opened.s3 .fl.a { transition-delay: .5s; }
@@ -183,8 +186,8 @@
     background: #e6e3d4 url("paper.webp") center / cover;
     box-shadow: 0 10px 24px rgba(68,45,49,.14), 0 1px 3px rgba(68,45,49,.12);
   }
-  .sheet.plain { background: var(--milk) var(--grain); border: 1px solid var(--line); box-shadow: none; }
-  .sheet.dark { background: #3e1a14 url("emboss.webp") center / cover; background-blend-mode: overlay; color: var(--milk); box-shadow: 0 12px 26px rgba(68,45,49,.3); }
+  .sheet.plain { background: var(--milk) var(--grain); border: 0; box-shadow: none; }
+  .sheet.dark { background: var(--brown) url("emboss.webp") center / cover; background-blend-mode: overlay; color: var(--milk); box-shadow: 0 12px 26px rgba(68,45,49,.3); }
   .sheet.dark h2 { color: var(--milk); }
   .sheet.dark .orn { background: var(--milk); }
   .sheet h2 { font-family: var(--script); font-weight: 400; font-size: 44px; line-height: 1.1; margin: 0 0 4px; color: var(--brown); }
@@ -328,7 +331,7 @@
     <div class="seal"><img src="emblem-line.webp" alt=""></div>
     <img class="fl a" data-k="flowersA" data-n="Квіти у вазі праворуч" src="flowers-a.webp" alt="" width="420" height="637">
     <img class="fl b" data-k="flowersB" data-n="Квіти з мереживом" src="flowers-b.webp" alt="" width="520" height="862">
-    <img class="fl c" data-k="flowersC" data-n="Квіти ліворуч" src="flowers-c.webp" alt="" width="420" height="637">
+    <div class="fl c glasses" data-k="glasses" data-n="Келихи ліворуч"><img src="champ-l.webp" alt="" width="400" height="503"><img src="champ-r.webp" alt="" width="400" height="495"></div>
     <div class="petals" id="petals"></div>
   </div>
 
