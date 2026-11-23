@@ -24,10 +24,10 @@
     --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .27 0 0 0 0 .18 0 0 0 0 .19 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html { background: #ebe9e1; scroll-behavior: smooth; }
+  html { background: var(--milk) var(--grain); scroll-behavior: smooth; }
   body {
     margin: 0 auto; max-width: var(--col); min-height: 100vh;
-    background: var(--milk) var(--grain); color: var(--ink);
+    background: transparent; color: var(--ink);
     font-family: var(--serif); font-size: 18px; line-height: 1.55;
     -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
@@ -43,8 +43,9 @@
     --envtop: calc(var(--tt) + var(--ih) - .30 * var(--h));
     position: relative; overflow: hidden;
     height: calc(var(--envtop) + var(--h) + 70px);
-    background: radial-gradient(90% 45% at 50% 78%, rgba(68,45,49,.10), transparent 70%), var(--milk) var(--grain);
+    background: radial-gradient(90% 45% at 50% 78%, rgba(68,45,49,.10), transparent 70%);
   }
+  @media (min-width: 700px) { :root { --col: 560px; } .hero { overflow: visible; } }
   .title { position: absolute; top: 34px; left: 0; right: 0; text-align: center; z-index: 1; transition: transform 1.6s cubic-bezier(.3,0,.2,1); }
   .opened .title { transform: translateY(26px); }
   .title .names { font-family: var(--script); font-size: clamp(46px, 13.5vw, 60px); line-height: 1; color: var(--brown); margin: 0; font-weight: 400; }
@@ -186,7 +187,7 @@
     background: #e6e3d4 url("paper.webp") center / cover;
     box-shadow: 0 10px 24px rgba(68,45,49,.14), 0 1px 3px rgba(68,45,49,.12);
   }
-  .sheet.plain { background: var(--milk) var(--grain); border: 0; box-shadow: none; }
+  .sheet.plain { background: transparent; border: 0; box-shadow: none; }
   .sheet.dark { background: var(--brown) url("emboss.webp") center / cover; background-blend-mode: overlay; color: var(--milk); box-shadow: 0 12px 26px rgba(68,45,49,.3); }
   .sheet.dark h2 { color: var(--milk); }
   .sheet.dark .orn { background: var(--milk); }
