@@ -2,215 +2,311 @@
 <html lang="uk">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#442d31">
 <title>Лілія & Кирило · 07.06.2027</title>
 <meta name="description" content="Запрошуємо на наше весілля 7 червня 2027 року, Pałac Pstrokonie">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="frame.webp">
 <style>
-  /* ===== Палітра: міняйте лише ці змінні ===== */
   :root {
-    --bg: #faf7f2;          /* фон */
-    --paper: #ffffff;       /* картки */
-    --ink: #3b3a36;         /* основний текст */
-    --muted: #8a857b;       /* другорядний текст */
-    --accent: #7d8c6e;      /* акцент (шавлія) */
-    --accent-soft: #e8ebe2;
-    --line: #e4ddd1;
-    --serif: "EB Garamond", Georgia, serif;   /* основний текст (Crimson без кирилиці в Google Fonts) */
-    --script: "Great Vibes", cursive;   /* заголовки, імена */
-    --latin-script: "Great Vibes", cursive;   /* монограма, & */
+    --brown: #442d31;      /* коричневий із запрошень */
+    --milk: #f7f8f0;       /* молочний із запрошень */
+    --ink: #442d31;
+    --muted: #7d6a6c;
+    --line: rgba(68,45,49,.18);
+    --serif: "EB Garamond", Georgia, serif;
+    --script: "Great Vibes", cursive;
+    --col: 480px;
+    /* фактура паперу */
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .27 0 0 0 0 .18 0 0 0 0 .19 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { background: var(--brown); scroll-behavior: smooth; }
   body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font-family: var(--serif); font-size: 20px; line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    margin: 0 auto; max-width: var(--col); min-height: 100vh;
+    background: var(--milk) var(--grain); color: var(--ink);
+    font-family: var(--serif); font-size: 18px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
-  a { color: var(--accent); }
+  body.locked { overflow: hidden; height: 100vh; }
+  a { color: inherit; }
   .todo { background: #fff3b0; outline: 1px dashed #d9b400; padding: 0 .2em; border-radius: 3px; }
 
-  /* Навігація */
-  nav {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(250,247,242,.92); backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--line);
+  /* ================= ІНТРО: КОНВЕРТ ================= */
+  #intro {
+    position: fixed; inset: 0; z-index: 50;
+    background: radial-gradient(120% 90% at 50% 40%, #5a3c40 0%, var(--brown) 55%, #2e1d20 100%);
+    display: grid; place-items: center; overflow: hidden;
+    transition: opacity .8s ease, visibility .8s;
   }
-  nav ul {
-    list-style: none; margin: 0 auto; padding: 0 16px; max-width: 980px;
-    display: flex; gap: 22px; overflow-x: auto; white-space: nowrap;
-    scrollbar-width: none;
+  #intro.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+  .scene { position: relative; width: min(86vw, 400px); perspective: 1400px; }
+  .env { position: relative; width: 100%; aspect-ratio: 1.42; transition: transform .9s cubic-bezier(.5,0,.3,1), opacity .9s; cursor: pointer; }
+  .env-back {
+    position: absolute; inset: 0; border-radius: 4px;
+    background: #ecebe1 var(--grain);
+    box-shadow: 0 30px 60px rgba(0,0,0,.35), 0 6px 14px rgba(0,0,0,.2);
   }
-  nav ul::-webkit-scrollbar { display: none; }
-  nav a {
-    display: block; padding: 14px 0; text-decoration: none; color: var(--muted);
-    font-size: 15px; letter-spacing: .12em; text-transform: uppercase;
-  }
-  nav a:hover { color: var(--ink); }
+  .env-front { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+  .env-front svg { width: 100%; height: 100%; display: block; }
 
-  /* Головний екран */
-  .hero {
-    min-height: 92vh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center;
-    padding: 60px 20px;
+  /* картка з мереживом усередині */
+  .card {
+    position: absolute; z-index: 2; left: 5%; width: 90%; top: 5%;
+    aspect-ratio: 1124 / 822;
+    transition: transform 1s cubic-bezier(.45,0,.25,1);
   }
-  .monogram {
-    width: 92px; height: 92px; border: 1px solid var(--accent); border-radius: 50%;
-    display: grid; place-items: center; margin-bottom: 36px;
-    font-family: var(--latin-script); font-size: 46px; color: var(--accent);
+  .card-paper { position: absolute; inset: 5.5% 4.5%; background: var(--milk) var(--grain); box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+  .card-lace { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 1px 1.2px rgba(0,0,0,.28)); }
+  .card-emblem { position: absolute; left: 50%; top: 50%; width: 30%; transform: translate(-50%,-50%); opacity: .8; }
+  .ribbon {
+    position: absolute; top: 0; bottom: 0; left: 72%; width: 7%;
+    background: linear-gradient(90deg, #e3dccb, #f6f1e4 45%, #ddd5c2);
+    box-shadow: 0 0 3px rgba(0,0,0,.15);
+    transition: transform .7s ease, opacity .7s;
   }
-  .kicker { letter-spacing: .3em; text-transform: uppercase; font-size: 14px; color: var(--muted); }
-  .names {
-    font-family: var(--script); font-weight: 400; color: var(--ink);
-    font-size: clamp(64px, 13vw, 128px); line-height: 1.05; margin: 18px 0 10px;
-  }
-  .names .amp { font-family: var(--latin-script); color: var(--accent); font-size: .8em; padding: 0 .12em; }
-  .date-line {
-    display: flex; align-items: center; gap: 18px; justify-content: center;
-    font-size: clamp(20px, 3.4vw, 26px); letter-spacing: .14em;
-  }
-  .date-line span.sep { width: 46px; height: 1px; background: var(--line); }
-  .place { color: var(--muted); font-style: italic; margin-top: 6px; }
+  .ribbon.top { bottom: 50%; } .ribbon.bot { top: 50%; }
+  .bow { position: absolute; left: 75.5%; top: 50%; width: 30%; transform: translate(-50%,-50%); transition: transform .7s ease, opacity .6s; filter: drop-shadow(0 2px 2px rgba(0,0,0,.2)); }
 
-  .countdown { display: flex; gap: 14px; margin-top: 44px; justify-content: center; }
-  .countdown div {
-    min-width: 76px; padding: 12px 8px; border: 1px solid var(--line);
-    background: var(--paper); border-radius: 2px;
+  /* клапан */
+  .flap {
+    position: absolute; z-index: 5; left: 0; top: 0; width: 100%; height: 58%;
+    transform-origin: 50% 0; transform-style: preserve-3d;
+    transition: transform .8s cubic-bezier(.5,0,.3,1);
   }
-  .countdown b { display: block; font-size: 32px; font-weight: 400; line-height: 1.1; }
-  .countdown small { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .flap > div { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .flap .f-front {
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    background: linear-gradient(180deg, #f3f2ea 0%, #f9f9f2 70%, #eeede4 100%), var(--grain);
+    background-blend-mode: multiply;
+  }
+  .flap .f-front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,.05)); }
+  .flap .f-back {
+    transform: rotateX(180deg);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    background: #efe9df url("liner.webp") center top / 100% auto no-repeat;
+  }
+  .flap .lace-e {
+    position: absolute; top: 0; height: 12%; width: 64.6%; backface-visibility: visible;
+    background: url("lace-edge.webp") left top / auto 100% repeat-x;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.22));
+  }
+  .flap .lace-e.l { left: 0; transform-origin: 0 0; transform: rotate(39.25deg); }
+  .flap .lace-e.r { right: 0; transform-origin: 100% 0; transform: rotate(-39.25deg); }
+  .flap-shadow { position: absolute; z-index: 4; left: 0; top: 0; width: 100%; height: 58%; pointer-events: none;
+    clip-path: polygon(0 0, 100% 0, 50% 100%); filter: blur(0); transition: opacity .4s; }
 
-  /* Секції */
-  section { padding: 84px 20px; }
-  section:nth-of-type(even) { background: var(--paper); }
-  .wrap { max-width: 720px; margin: 0 auto; text-align: center; }
-  h2 {
-    font-family: var(--script); font-weight: 400; color: var(--accent);
-    font-size: clamp(46px, 8vw, 64px); margin: 0 0 8px; line-height: 1.15;
+  /* сургучна печатка */
+  .seal {
+    position: absolute; z-index: 6; left: 50%; top: 58%; width: 22%; aspect-ratio: 1;
+    transform: translate(-50%,-55%); border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,.25), transparent 40%),
+      radial-gradient(circle at 50% 50%, #6c3e43 0%, #553034 60%, #3e2326 100%);
+    background-color: #5a3438;
+    box-shadow: 0 3px 6px rgba(0,0,0,.35), inset 0 -3px 6px rgba(0,0,0,.35), inset 0 2px 4px rgba(255,255,255,.15);
+    display: grid; place-items: center;
+    transition: transform .45s ease, opacity .45s;
+    animation: pulse 2.4s ease-in-out infinite;
   }
-  .ornament { width: 60px; height: 1px; background: var(--accent); margin: 0 auto 30px; opacity: .6; }
-  .lead { font-size: clamp(22px, 3.2vw, 27px); font-weight: 300; }
-  p { margin: 0 0 1em; }
+  .seal::before { /* нерівний край воску */
+    content: ""; position: absolute; inset: -7%; z-index: -1; border-radius: 47% 53% 50% 50% / 52% 48% 52% 48%;
+    background: #4f2d31; box-shadow: 0 2px 4px rgba(0,0,0,.3);
+  }
+  .seal img { width: 78%; opacity: .55; mix-blend-mode: screen; }
+  @keyframes pulse { 0%,100% { transform: translate(-50%,-55%) scale(1); } 50% { transform: translate(-50%,-55%) scale(1.05); } }
 
-  /* Програма */
-  .timeline { list-style: none; padding: 0; margin: 10px auto 0; max-width: 460px; text-align: left; }
-  .timeline li {
-    display: grid; grid-template-columns: 76px 1fr; gap: 18px;
-    padding: 14px 0; border-bottom: 1px solid var(--line);
+  .hint {
+    position: absolute; left: 0; right: 0; top: calc(100% + 34px); text-align: center;
+    color: rgba(247,248,240,.8); font-size: 15px; letter-spacing: .22em; text-transform: uppercase;
+    transition: opacity .4s;
   }
-  .timeline li:last-child { border-bottom: 0; }
-  .timeline time { font-size: 24px; color: var(--accent); }
+  .intro-names { position: absolute; left: 0; right: 0; bottom: calc(100% + 28px); text-align: center; color: var(--milk); font-family: var(--script); font-size: 44px; line-height: 1; transition: opacity .5s; }
+  .skip {
+    position: absolute; bottom: max(22px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
+    background: none; border: 0; color: rgba(247,248,240,.55); font: 14px var(--serif); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; padding: 10px;
+  }
 
-  /* Місце */
-  .venue-name { font-size: 28px; margin-bottom: 0; }
-  .map {
-    width: 100%; aspect-ratio: 16/10; border: 1px solid var(--line); margin: 26px 0 18px;
-    background: var(--accent-soft);
+  /* --- кроки анімації --- */
+  #intro.s1 .seal { animation: none; transform: translate(-50%,-55%) scale(1.25); opacity: 0; }
+  #intro.s1 .hint, #intro.s1 .intro-names, #intro.s1 .skip { opacity: 0; }
+  #intro.s2 .flap { transform: rotateX(180deg); }
+  #intro.s3 .flap { z-index: 1; }
+  #intro.s3 .card { transform: translateY(-78%); z-index: 3; }
+  #intro.s4 .env-back, #intro.s4 .env-front, #intro.s4 .flap { transition: transform .9s cubic-bezier(.5,0,.3,1), opacity .7s; transform: translateY(130%); opacity: 0; }
+  #intro.s4 .flap { transform: translateY(130%) rotateX(180deg); }
+  #intro.s4 .card { transform: translateY(-30%) scale(1.06); }
+  #intro.s5 .bow { transform: translate(-50%,-50%) scale(.2) rotate(90deg); opacity: 0; }
+  #intro.s5 .ribbon.top { transform: translateY(-140%); opacity: 0; }
+  #intro.s5 .ribbon.bot { transform: translateY(140%); opacity: 0; }
+  #intro.s6 .card { transform: translateY(-30%) scale(.9); opacity: 0; transition: transform .8s ease, opacity .8s; }
+  #intro.s6 .peek { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  .peek { /* головний вкладиш виїжджає з картки */
+    position: absolute; z-index: 8; left: 50%; top: 35%; width: 62%; aspect-ratio: 800/1138;
+    background: url("frame.webp") center / contain no-repeat;
+    transform: translate(-50%,-30%) scale(.55); opacity: 0;
+    transition: transform 1s cubic-bezier(.3,0,.2,1), opacity .5s;
+    filter: drop-shadow(0 18px 30px rgba(0,0,0,.35));
   }
-  .map iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  /* ================= ГОЛОВНИЙ ВКЛАДИШ ================= */
+  .hero { min-height: 100svh; display: grid; place-items: center; padding: 34px 18px 70px; position: relative; }
+  .insert {
+    position: relative; width: min(100%, 400px); aspect-ratio: 800/1138; container-type: inline-size;
+    background: url("frame.webp") center / contain no-repeat;
+    filter: drop-shadow(0 16px 26px rgba(68,45,49,.28));
+    color: var(--milk); text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 15cqw 13cqw 14cqw;
+  }
+  body.reveal .insert { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes rise { from { transform: scale(.82) translateY(4%); opacity: 0; } to { transform: none; opacity: 1; } }
+  .insert .ins-names { font-family: var(--script); font-size: 11.5cqw; line-height: 1.05; margin: 0 0 4cqw; font-weight: 400; }
+  .insert .ins-text { font-size: 2.85cqw; letter-spacing: .14em; text-transform: uppercase; line-height: 1.65; margin: 0 0 4.2cqw; }
+  .insert .ins-date { font-family: var(--script); font-size: 7.4cqw; margin: 0 0 2cqw; }
+  .insert .ins-place { font-size: 3cqw; letter-spacing: .08em; line-height: 1.5; margin: 0 0 3cqw; opacity: .92; }
+  .insert .ins-palace { width: 72%; height: auto; margin: 0 0 3cqw; }
+  .insert .ins-sign { font-family: var(--script); font-size: 6cqw; line-height: 1.15; }
+  .scroll-cue {
+    position: absolute; bottom: 18px; left: 0; right: 0; text-align: center;
+    font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted);
+    animation: bob 2.2s ease-in-out infinite;
+  }
+  .scroll-cue span { display: block; font-size: 20px; letter-spacing: 0; }
+  @keyframes bob { 50% { transform: translateY(6px); } }
+
+  /* ================= КАРТКИ З ДЕТАЛЯМИ ================= */
+  .sheet {
+    margin: 0 14px 22px; padding: 40px 30px 34px; text-align: center; position: relative;
+    background: #e6e3d4 url("paper.webp") center / cover;
+    box-shadow: 0 10px 24px rgba(68,45,49,.14), 0 1px 3px rgba(68,45,49,.12);
+  }
+  .sheet.plain { background: var(--milk) var(--grain); border: 1px solid var(--line); box-shadow: none; }
+  .sheet h2 { font-family: var(--script); font-weight: 400; font-size: 44px; line-height: 1.1; margin: 0 0 4px; color: var(--brown); }
+  .sheet h3 { font-size: 13px; letter-spacing: .24em; text-transform: uppercase; font-weight: 500; margin: 22px 0 6px; }
+  .sheet p { margin: 0 0 .8em; }
+  .orn { width: 46px; height: 1px; background: var(--brown); opacity: .4; margin: 10px auto 20px; }
+  .caps { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; }
+  .script { font-family: var(--script); font-size: 30px; line-height: 1.2; }
+
+  .timeline { list-style: none; padding: 0; margin: 0 auto; max-width: 300px; text-align: left; }
+  .timeline li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .timeline li:last-child { border: 0; }
+  .timeline time { font-family: var(--script); font-size: 26px; line-height: 1.1; }
+
+  .map { width: 100%; aspect-ratio: 4/3; border: 1px solid var(--line); margin: 16px 0 14px; background: #e9e6da; }
+  .map iframe { width: 100%; height: 100%; border: 0; display: block; filter: sepia(.25) saturate(.8); }
   .btn {
-    display: inline-block; padding: 12px 30px; border: 1px solid var(--accent);
-    color: var(--accent); text-decoration: none; letter-spacing: .14em;
-    text-transform: uppercase; font-size: 14px; font-family: var(--serif);
-    background: transparent; cursor: pointer; transition: .2s;
+    display: inline-block; padding: 12px 26px; border: 1px solid var(--brown); color: var(--brown);
+    text-decoration: none; font: 500 13px var(--serif); letter-spacing: .2em; text-transform: uppercase;
+    background: transparent; cursor: pointer;
   }
-  .btn:hover, .btn.solid { background: var(--accent); color: #fff; }
-  .btn.solid:hover { opacity: .9; }
-  .info-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); text-align: left; margin-top: 30px; }
-  .info-grid div { padding: 20px; border: 1px solid var(--line); background: var(--bg); }
-  .info-grid h3 { margin: 0 0 6px; font-weight: 500; font-size: 20px; }
-  .info-grid p { margin: 0; font-size: 18px; color: var(--muted); }
+  .btn.solid { background: var(--brown); color: var(--milk); }
+  .info { text-align: left; margin-top: 16px; }
+  .info div { padding: 12px 0; border-top: 1px solid var(--line); }
+  .info b { display: block; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; }
 
-  /* Дрес-код */
-  .swatches { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 24px 0; }
-  .swatches span { width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--line); }
+  .dress { display: grid; gap: 22px; }
+  .dress .who { font-family: var(--script); font-size: 34px; line-height: 1; }
+  .dress img { display: block; width: 108%; margin: 10px -4% 4px; height: auto; }
+  .sw { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+  .sw span { width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(0,0,0,.08); box-shadow: inset 0 -3px 6px rgba(0,0,0,.18); }
 
-  /* RSVP */
-  form { text-align: left; max-width: 520px; margin: 26px auto 0; }
-  label { display: block; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 18px 0 6px; }
-  input[type=text], input[type=number], textarea, select {
-    width: 100%; padding: 12px 14px; font: inherit; font-size: 19px; color: var(--ink);
-    border: 1px solid var(--line); background: var(--bg); border-radius: 0;
+  /* форма */
+  form { text-align: left; margin-top: 14px; }
+  label { display: block; font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; margin: 16px 0 6px; color: var(--muted); }
+  input[type=text], textarea {
+    width: 100%; padding: 12px 13px; font: 18px var(--serif); color: var(--ink);
+    border: 1px solid var(--line); background: rgba(255,255,255,.6); border-radius: 0; -webkit-appearance: none;
   }
-  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
-  .choice { display: flex; gap: 10px; flex-wrap: wrap; }
-  .choice label {
-    text-transform: none; letter-spacing: 0; font-size: 19px; color: var(--ink);
-    margin: 0; padding: 10px 16px; border: 1px solid var(--line); cursor: pointer; flex: 1; text-align: center;
-  }
+  input:focus, textarea:focus { outline: none; border-color: var(--brown); }
+  .choice { display: flex; gap: 8px; }
+  .choice label { flex: 1; margin: 0; padding: 11px 6px; text-align: center; text-transform: none; letter-spacing: 0; font-size: 17px; color: var(--ink); border: 1px solid var(--line); background: rgba(255,255,255,.45); cursor: pointer; }
   .choice input { position: absolute; opacity: 0; pointer-events: none; }
-  .choice input:checked + span { color: var(--accent); }
-  .choice label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+  .choice label:has(input:checked) { background: var(--brown); color: var(--milk); border-color: var(--brown); }
   .if-yes[hidden] { display: none; }
-  form .btn { margin-top: 28px; width: 100%; padding: 15px; }
-  .form-msg { margin-top: 18px; text-align: center; font-size: 19px; }
-  .deadline { color: var(--muted); font-style: italic; }
+  form .btn { width: 100%; margin-top: 24px; padding: 15px; }
+  .form-msg { margin-top: 14px; text-align: center; }
 
-  .when { font-size: 23px; margin-top: 28px; }
-  .muted { color: var(--muted); }
-  .signature { margin-top: 30px; font-style: italic; color: var(--muted); }
-  .signature span { display: inline-block; margin-top: 4px; font-family: var(--script); font-style: normal; font-size: 40px; color: var(--ink); }
-  .dress { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 6px; }
-  .dress > div { padding: 26px 20px 10px; border: 1px solid var(--line); background: var(--bg); }
-  .dress h3 { font-family: var(--script); font-weight: 400; font-size: 36px; margin: 0 0 6px; color: var(--accent); }
-  .dress .swatches span { width: 40px; height: 40px; }
+  .contact a { text-decoration: none; border-bottom: 1px solid var(--line); }
+  footer { text-align: center; padding: 26px 20px calc(110px + env(safe-area-inset-bottom)); color: var(--muted); font-size: 15px; }
+  footer img { width: 92px; display: block; margin: 0 auto 10px; }
+  footer button { background: none; border: 0; color: var(--muted); font: 14px var(--serif); text-decoration: underline; cursor: pointer; margin-top: 10px; }
 
-  footer { text-align: center; padding: 50px 20px 60px; color: var(--muted); font-size: 17px; }
-  footer .names { font-size: 44px; margin: 0 0 6px; }
-
-  @media (max-width: 520px) {
-    body { font-size: 19px; }
-    section { padding: 64px 18px; }
-    .countdown div { min-width: 64px; }
-    .countdown b { font-size: 26px; }
+  /* липка кнопка */
+  .rsvp-bar {
+    position: fixed; z-index: 20; left: 50%; bottom: max(14px, env(safe-area-inset-bottom));
+    transform: translate(-50%, 160%); transition: transform .5s ease;
+    background: var(--brown); color: var(--milk); text-decoration: none;
+    padding: 14px 34px; font: 500 13px var(--serif); letter-spacing: .22em; text-transform: uppercase;
+    box-shadow: 0 8px 20px rgba(0,0,0,.25); white-space: nowrap;
   }
+  body.reveal .rsvp-bar.show { transform: translate(-50%, 0); }
+
+  .fade { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
+  .fade.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
-<body>
+<body class="locked">
 
-<nav>
-  <ul>
-    <li><a href="#zaproshennia">Запрошення</a></li>
-    <li><a href="#taiminh">Таймінг</a></li>
-    <li><a href="#mistse">Місце і транспорт</a></li>
-    <li><a href="#rozselennia">Розселення</a></li>
-    <li><a href="#dres-kod">Дрес-код</a></li>
-    <li><a href="#format">Формат свята</a></li>
-    <li><a href="#podarunky">Подарунки</a></li>
-    <li><a href="#rsvp">Відповісти</a></li>
-    <li><a href="#kontakt">Контакт</a></li>
-  </ul>
-</nav>
-
-<header class="hero">
-  <div class="monogram">LK</div>
-  <div class="kicker">Запрошуємо на весілля</div>
-  <h1 class="names">Лілія <span class="amp">&amp;</span> Кирило</h1>
-  <div class="date-line"><span class="sep"></span>07 · 06 · 2027<span class="sep"></span></div>
-  <div class="place">Pałac Pstrokonie · 15:00</div>
-  <div class="countdown" id="countdown" aria-label="Зворотний відлік">
-    <div><b id="cd-d">–</b><small>днів</small></div>
-    <div><b id="cd-h">–</b><small>годин</small></div>
-    <div><b id="cd-m">–</b><small>хвилин</small></div>
+<!-- ===== КОНВЕРТ ===== -->
+<div id="intro" aria-label="Конверт із запрошенням">
+  <div class="scene">
+    <div class="intro-names">Лілія &amp; Кирило</div>
+    <div class="env" id="env" role="button" tabindex="0" aria-label="Відкрити конверт">
+      <div class="env-back"></div>
+      <div class="card">
+        <div class="card-paper"></div>
+        <img class="card-lace" src="lace.webp" alt="">
+        <img class="card-emblem" src="emblem.webp" alt="">
+        <div class="ribbon top"></div><div class="ribbon bot"></div>
+        <svg class="bow" viewBox="0 0 120 90" aria-hidden="true">
+          <defs><linearGradient id="sat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbf7ec"/><stop offset=".5" stop-color="#e8e0cc"/><stop offset="1" stop-color="#f4eee0"/></linearGradient></defs>
+          <path d="M60 42 C40 10, 8 14, 12 34 C15 50, 42 50, 60 44 Z" fill="url(#sat)" stroke="#d6ccb5" stroke-width="1"/>
+          <path d="M60 42 C80 10, 112 14, 108 34 C105 50, 78 50, 60 44 Z" fill="url(#sat)" stroke="#d6ccb5" stroke-width="1"/>
+          <path d="M57 46 L40 86 L48 82 L52 88 L60 48 Z" fill="url(#sat)" stroke="#d6ccb5" stroke-width="1"/>
+          <path d="M63 46 L80 86 L72 82 L68 88 L60 48 Z" fill="url(#sat)" stroke="#d6ccb5" stroke-width="1"/>
+          <ellipse cx="60" cy="44" rx="8" ry="7" fill="#efe8d8" stroke="#d6ccb5"/>
+        </svg>
+      </div>
+      <div class="env-front">
+        <svg viewBox="0 0 142 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 0 L71 56 L0 100 Z" fill="#f1f1e8"/>
+          <path d="M142 0 L71 56 L142 100 Z" fill="#efefe6"/>
+          <path d="M0 100 L71 50 L142 100 Z" fill="#f6f6ee"/>
+          <path d="M0 100 L71 50 L142 100" fill="none" stroke="rgba(0,0,0,.07)" stroke-width=".4"/>
+        </svg>
+      </div>
+      <div class="flap"><div class="f-front"></div><div class="f-back"></div><i class="lace-e l"></i><i class="lace-e r"></i></div>
+      <div class="seal"><img src="emblem-line.webp" alt=""></div>
+      <div class="peek"></div>
+    </div>
+    <div class="hint">Торкніться конверта</div>
   </div>
+  <button class="skip" id="skip" type="button">Пропустити</button>
+</div>
+
+<!-- ===== ГОЛОВНИЙ ВКЛАДИШ ===== -->
+<header class="hero" id="top">
+  <div class="insert">
+    <h1 class="ins-names">Лілія &amp; Кирило</h1>
+    <p class="ins-text">Скоро настане день, на який ми чекали з&nbsp;особливим хвилюванням — день нашого весілля. Будемо раді розділити з&nbsp;вами його емоції</p>
+    <p class="ins-date">7 червня 2027 о 15:00</p>
+    <p class="ins-place">Pałac Pstrokonie<br>Pstrokonie 89, Zapolice</p>
+    <img class="ins-palace" src="palac-line.webp" alt="Pałac Pstrokonie" width="1200" height="600">
+    <p class="ins-sign">з любов’ю,<br>Лілія і Кирило</p>
+  </div>
+  <div class="scroll-cue">Деталі<span>⌄</span></div>
 </header>
 
-<section id="zaproshennia">
-  <div class="wrap">
-    <h2>Дорогі гості</h2>
-    <div class="ornament"></div>
-    <p class="lead">Скоро настане день, на&nbsp;який ми чекали з&nbsp;особливим хвилюванням — день нашого весілля. Будемо раді розділити з&nbsp;вами його емоції.</p>
-    <p class="when"><b>7 червня 2027 о 15:00</b><br>Pałac Pstrokonie<br><span class="muted">Pstrokonie 89, Zapolice</span></p>
-    <p class="signature">з любов’ю,<br><span>Лілія і Кирило</span></p>
-  </div>
-</section>
-
-<section id="taiminh">
-  <div class="wrap">
-    <h2>Таймінг</h2>
-    <div class="ornament"></div>
+<main>
+  <section class="sheet fade" id="taiminh">
+    <h2>Таймінг</h2><div class="orn"></div>
     <ul class="timeline">
       <li><time><span class="todo">14:30</span></time><div><span class="todo">Збір гостей</span></div></li>
       <li><time>15:00</time><div>Церемонія</div></li>
@@ -219,184 +315,171 @@
       <li><time><span class="todo">20:00</span></time><div><span class="todo">Перший танець і вечірка</span></div></li>
       <li><time><span class="todo">22:00</span></time><div><span class="todo">Весільний торт</span></div></li>
     </ul>
-  </div>
-</section>
+  </section>
 
-<section id="mistse">
-  <div class="wrap">
-    <h2>Місце і транспорт</h2>
-    <div class="ornament"></div>
-    <p class="venue-name">Pałac Pstrokonie</p>
-    <p class="place">Pstrokonie 89, Zapolice, Польща</p>
+  <section class="sheet plain fade" id="mistse">
+    <h2>Місце</h2><div class="orn"></div>
+    <p class="caps">Pałac Pstrokonie</p>
+    <p>Pstrokonie 89, Zapolice, Польща</p>
     <div class="map">
       <iframe title="Карта: Pałac Pstrokonie" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
         src="https://maps.google.com/maps?q=Pa%C5%82ac%20Pstrokonie%2C%20Pstrokonie%2089%2C%20Zapolice&z=13&output=embed"></iframe>
     </div>
-    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pa%C5%82ac%20Pstrokonie%2C%20Pstrokonie%2089%2C%20Zapolice" target="_blank" rel="noopener">Відкрити маршрут</a>
-    <div class="info-grid">
-      <div><h3>Автомобілем</h3><p><span class="todo">Паркінг: …</span></p></div>
-      <div><h3>Трансфер</h3><p><span class="todo">Звідки, о котрій, повернення — …</span></p></div>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pa%C5%82ac%20Pstrokonie%2C%20Pstrokonie%2089%2C%20Zapolice" target="_blank" rel="noopener">Прокласти маршрут</a>
+    <div class="info">
+      <div><b>Паркінг</b><span class="todo">…</span></div>
+      <div><b>Трансфер</b><span class="todo">Звідки, о котрій, повернення — …</span></div>
+      <div><b>Розселення</b><span class="todo">Де ночують гості, хто бронює, заїзд і виїзд — …</span></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="rozselennia">
-  <div class="wrap">
-    <h2>Розселення</h2>
-    <div class="ornament"></div>
-    <p><span class="todo">Де ночують гості, хто бронює, ціна/хто платить, заїзд і виїзд — …</span></p>
-  </div>
-</section>
-
-<section id="dres-kod">
-  <div class="wrap">
-    <h2>Дрес-код</h2>
-    <div class="ornament"></div>
+  <section class="sheet fade" id="dres-kod">
+    <h2>Дрес-код</h2><div class="orn"></div>
     <div class="dress">
       <div>
-        <h3>Дівчата</h3>
+        <div class="who">Дівчата</div>
         <p>однотонні, елегантні сукні коричневого, оливкового, срібного, сірого або чорного відтінків</p>
-        <div class="swatches">
-          <span title="коричневий" style="background:#6b4a33"></span>
-          <span title="оливковий" style="background:#6b6b3a"></span>
-          <span title="срібний" style="background:linear-gradient(135deg,#e6e6e6,#a9a9a9 55%,#d8d8d8)"></span>
-          <span title="сірий" style="background:#8a8a86"></span>
-          <span title="чорний" style="background:#1f1f1f"></span>
-        </div>
+        <img src="dress-girls.webp" alt="Приклади суконь: коричнева, оливкова, чорна, срібна" width="900" height="573" loading="lazy">
       </div>
       <div>
-        <h3>Хлопці</h3>
+        <div class="who">Хлопці</div>
         <p>елегантні костюми коричневого, сірого або чорного відтінку</p>
-        <div class="swatches">
-          <span title="коричневий" style="background:#6b4a33"></span>
-          <span title="сірий" style="background:#8a8a86"></span>
-          <span title="чорний" style="background:#1f1f1f"></span>
-        </div>
+        <img src="dress-boys.webp" alt="Приклади костюмів: сірий, чорний, коричневий, бежевий" width="900" height="712" loading="lazy">
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="format">
-  <div class="wrap">
-    <h2>Формат свята</h2>
-    <div class="ornament"></div>
-    <p class="lead">Наше свято буде гучним і триватиме до пізньої ночі, тому ми вирішили зробити його лише для дорослих. Дякуємо за розуміння!</p>
-  </div>
-</section>
+  <section class="sheet plain fade" id="format">
+    <h2>Формат свята</h2><div class="orn"></div>
+    <p>Наше свято буде гучним і триватиме до пізньої ночі, тому ми вирішили зробити його лише для дорослих. Дякуємо за розуміння!</p>
+  </section>
 
-<section id="podarunky">
-  <div class="wrap">
-    <h2>Подарунки</h2>
-    <div class="ornament"></div>
-    <p class="lead">Квітами наше свято вже прикрасили, тож букетів, будь ласка, не даруйте. А якщо думаєте про подарунок — будемо вдячні за грошовий і обіцяємо знайти йому гарне застосування.</p>
-  </div>
-</section>
+  <section class="sheet fade" id="podarunky">
+    <h2>Подарунки</h2><div class="orn"></div>
+    <p>Квітами наше свято вже прикрасили, тож букетів, будь ласка, не даруйте. А якщо думаєте про подарунок — будемо вдячні за грошовий і обіцяємо знайти йому гарне застосування.</p>
+  </section>
 
-<section id="rsvp">
-  <div class="wrap">
-    <h2>Ви з нами?</h2>
-    <div class="ornament"></div>
-    <p>Будь ласка, підтвердіть свою присутність <b>до <span class="todo">1 квітня 2027</span></b>.</p>
-
+  <section class="sheet plain fade" id="rsvp">
+    <h2>Ви з нами?</h2><div class="orn"></div>
+    <p>Будь ласка, підтвердіть свою присутність<br><span class="script">до 1 травня 2027</span></p>
     <!-- Formspree: mgaklyzn -->
     <form id="rsvp-form" action="https://formspree.io/f/mgaklyzn" method="POST">
-      <label for="f-name">Ваше ім'я та прізвище</label>
+      <label for="f-name">Ваше імʼя та прізвище</label>
       <input id="f-name" name="Імʼя" type="text" required autocomplete="name">
-
       <label>Чи будете на святі?</label>
       <div class="choice">
         <label><input type="radio" name="Присутність" value="Так, буду" required><span>Так, буду</span></label>
-        <label><input type="radio" name="Присутність" value="На жаль, не зможу"><span>На жаль, не зможу</span></label>
+        <label><input type="radio" name="Присутність" value="На жаль, не зможу"><span>Не зможу</span></label>
       </div>
-
       <div class="if-yes" hidden>
         <label for="f-guest">Імʼя супутника (якщо є)</label>
         <input id="f-guest" name="Супутник" type="text">
-
         <label>Потрібен трансфер?</label>
         <div class="choice">
           <label><input type="radio" name="Трансфер" value="Так"><span>Так</span></label>
           <label><input type="radio" name="Трансфер" value="Ні"><span>Ні</span></label>
         </div>
-
         <label>Залишитеся на ніч?</label>
         <div class="choice">
           <label><input type="radio" name="Ночівля" value="Так"><span>Так</span></label>
           <label><input type="radio" name="Ночівля" value="Ні"><span>Ні</span></label>
         </div>
-
-        <label for="f-food">Особливості харчування, алергії</label>
+        <label for="f-food">Харчування, алергії</label>
         <input id="f-food" name="Харчування" type="text" placeholder="Наприклад: вегетаріанське меню">
       </div>
-
       <label for="f-msg">Побажання молодятам</label>
       <textarea id="f-msg" name="Побажання" rows="3"></textarea>
-
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
       <button class="btn solid" type="submit">Надіслати</button>
       <div class="form-msg" id="form-msg" role="status"></div>
     </form>
-  </div>
-</section>
+  </section>
 
-<section id="kontakt">
-  <div class="wrap">
-    <h2>Контакт організатора</h2>
-    <div class="ornament"></div>
-    <p>З усіх питань щодо весілля звертайтеся до нашого організатора:</p>
-    <p class="venue-name"><span class="todo">Імʼя</span></p>
-    <p><span class="todo">телефон · Telegram / WhatsApp</span></p>
-  </div>
-</section>
+  <section class="sheet fade contact" id="kontakt">
+    <h2>Координатор</h2><div class="orn"></div>
+    <p>З усіх питань щодо розселення, доїзду, паркінгу та цікавих ідей — пишіть або телефонуйте нашому координатору</p>
+    <p class="caps" style="font-size:16px;margin-top:14px">Ірина</p>
+    <p><a href="tel:+48574427231">+48 574 427 231</a><br>
+       Telegram: <a href="https://t.me/irinaloiy" target="_blank" rel="noopener">@irinaloiy</a></p>
+  </section>
+</main>
 
 <footer>
-  <div class="names">Лілія &amp; Кирило</div>
-  <div>07.06.2027 · Pałac Pstrokonie</div>
-
+  <img src="emblem.webp" alt="LK">
+  Лілія &amp; Кирило · 07.06.2027
+  <br><button type="button" id="replay">Відкрити конверт ще раз</button>
 </footer>
 
-<script>
-  // Зворотний відлік (час Варшави, літній: UTC+2)
-  (function () {
-    var target = new Date("2027-06-07T15:00:00+02:00").getTime();
-    function tick() {
-      var diff = Math.max(0, target - Date.now());
-      var d = Math.floor(diff / 864e5), h = Math.floor(diff % 864e5 / 36e5), m = Math.floor(diff % 36e5 / 6e4);
-      document.getElementById("cd-d").textContent = d;
-      document.getElementById("cd-h").textContent = h;
-      document.getElementById("cd-m").textContent = m;
-    }
-    tick(); setInterval(tick, 30000);
-  })();
+<a class="rsvp-bar" id="rsvp-bar" href="#rsvp">Відповісти</a>
 
-  // Форма: показувати додаткові поля лише для тих, хто прийде
-  (function () {
-    var form = document.getElementById("rsvp-form");
-    var yesBlock = form.querySelector(".if-yes");
-    var msg = document.getElementById("form-msg");
-    form.querySelectorAll('input[name="Присутність"]').forEach(function (r) {
-      r.addEventListener("change", function () { yesBlock.hidden = r.value !== "Так, буду" || !r.checked; });
-    });
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (form.action.indexOf("YOUR_FORM_ID") !== -1) {
-        msg.textContent = "Форма ще не підключена (потрібен ID з Formspree).";
-        return;
-      }
-      var btn = form.querySelector("button"); btn.disabled = true;
-      msg.textContent = "Надсилаємо…";
-      fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
-        .then(function (r) {
-          if (!r.ok) throw new Error();
-          var yes = form.querySelector('input[name="Присутність"]:checked');
-          form.reset(); yesBlock.hidden = true;
-          msg.textContent = yes && yes.value === "Так, буду" ? "Дякуємо! Чекаємо на вас 7 червня 🤍" : "Дякуємо, що повідомили! Нам буде вас бракувати.";
-        })
-        .catch(function () { msg.textContent = "Не вдалося надіслати. Спробуйте ще раз або напишіть нам."; })
-        .finally(function () { btn.disabled = false; });
-    });
-  })();
+<script>
+(function () {
+  var intro = document.getElementById("intro"), env = document.getElementById("env"), body = document.body;
+  var steps = [["s1",0],["s2",350],["s3",1100],["s4",2100],["s5",3000],["s6",3700]];
+  var running = false, timers = [];
+  var KEY = "lk-opened";
+
+  function finish() {
+    timers.forEach(clearTimeout);
+    intro.classList.add("gone");
+    body.classList.remove("locked");
+    body.classList.add("reveal");
+    window.scrollTo(0, 0);
+    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+  }
+  function play() {
+    if (running) return; running = true;
+    steps.forEach(function (s) { timers.push(setTimeout(function () { intro.classList.add(s[0]); }, s[1])); });
+    timers.push(setTimeout(finish, 4700));
+  }
+  function reset() {
+    running = false;
+    intro.className = ""; body.classList.add("locked"); body.classList.remove("reveal");
+    window.scrollTo(0, 0);
+  }
+  env.addEventListener("click", play);
+  env.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); play(); } });
+  document.getElementById("skip").addEventListener("click", finish);
+  document.getElementById("replay").addEventListener("click", reset);
+
+  var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var seen = false; try { seen = localStorage.getItem(KEY) === "1"; } catch (e) {}
+  if (reduced || seen) { intro.classList.add("gone"); body.classList.remove("locked"); body.classList.add("reveal"); }
+
+  // плавна поява карток
+  var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: .12 }) : null;
+  document.querySelectorAll(".fade").forEach(function (el) { io ? io.observe(el) : el.classList.add("in"); });
+
+  // липка кнопка «Відповісти»: показуємо після головного вкладиша, ховаємо біля форми
+  var bar = document.getElementById("rsvp-bar"), rsvp = document.getElementById("rsvp"), hero = document.getElementById("top");
+  function onScroll() {
+    var y = window.scrollY, h = hero.offsetHeight * .6;
+    var r = rsvp.getBoundingClientRect(), nearForm = r.top < innerHeight && r.bottom > 0;
+    bar.classList.toggle("show", y > h && !nearForm);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // форма
+  var form = document.getElementById("rsvp-form"), yesBlock = form.querySelector(".if-yes"), msg = document.getElementById("form-msg");
+  form.querySelectorAll('input[name="Присутність"]').forEach(function (r) {
+    r.addEventListener("change", function () { yesBlock.hidden = r.value !== "Так, буду"; });
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var btn = form.querySelector("button"); btn.disabled = true; msg.textContent = "Надсилаємо…";
+    fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+      .then(function (r) {
+        if (!r.ok) throw new Error();
+        var yes = form.querySelector('input[name="Присутність"]:checked');
+        form.reset(); yesBlock.hidden = true;
+        msg.textContent = yes && yes.value === "Так, буду" ? "Дякуємо! Чекаємо на вас 7 червня 🤍" : "Дякуємо, що повідомили! Нам буде вас бракувати.";
+      })
+      .catch(function () { msg.textContent = "Не вдалося надіслати. Спробуйте ще раз або напишіть Ірині."; })
+      .finally(function () { btn.disabled = false; });
+  });
+})();
 </script>
 </body>
 </html>
