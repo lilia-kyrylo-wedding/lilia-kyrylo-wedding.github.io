@@ -415,26 +415,12 @@
     <p>Будь ласка, підтвердіть свою присутність<br><span class="script">до 1 травня 2027</span></p>
     <!-- Formspree: mgaklyzn -->
     <form id="rsvp-form" action="https://formspree.io/f/mgaklyzn" method="POST">
-      <label for="f-name">Ваше імʼя та прізвище</label>
-      <input id="f-name" name="Імʼя" type="text" required autocomplete="name">
+      <label for="f-name">Ваші імена та прізвища</label>
+      <input id="f-name" name="Імʼя" type="text" required autocomplete="name" placeholder="Якщо вас двоє — впишіть обох">
       <label>Чи будете на святі?</label>
       <div class="choice">
         <label><input type="radio" name="Присутність" value="Так, буду" required><span>Так, буду</span></label>
         <label><input type="radio" name="Присутність" value="На жаль, не зможу"><span>Не зможу</span></label>
-      </div>
-      <div class="if-yes" hidden>
-        <label for="f-guest">Імʼя супутника (якщо є)</label>
-        <input id="f-guest" name="Супутник" type="text">
-        <label>Потрібен трансфер?</label>
-        <div class="choice">
-          <label><input type="radio" name="Трансфер" value="Так"><span>Так</span></label>
-          <label><input type="radio" name="Трансфер" value="Ні"><span>Ні</span></label>
-        </div>
-        <label>Залишитеся на ніч?</label>
-        <div class="choice">
-          <label><input type="radio" name="Ночівля" value="Так"><span>Так</span></label>
-          <label><input type="radio" name="Ночівля" value="Ні"><span>Ні</span></label>
-        </div>
       </div>
       <label for="f-msg">Коментар</label>
       <textarea id="f-msg" name="Коментар" rows="3" placeholder="Наприклад: дієта, алергії або інша інформація"></textarea>
@@ -582,10 +568,7 @@ var LAYOUT = {"insert":{"x":-0.007,"y":0.153,"s":1,"r":0},"env":{"x":-0.007,"y":
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   // форма
-  var form = document.getElementById("rsvp-form"), yesBlock = form.querySelector(".if-yes"), msg = document.getElementById("form-msg");
-  form.querySelectorAll('input[name="Присутність"]').forEach(function (r) {
-    r.addEventListener("change", function () { yesBlock.hidden = r.value !== "Так, буду"; });
-  });
+  var form = document.getElementById("rsvp-form"), msg = document.getElementById("form-msg");
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var btn = form.querySelector("button"); btn.disabled = true; msg.textContent = "Надсилаємо…";
@@ -593,7 +576,7 @@ var LAYOUT = {"insert":{"x":-0.007,"y":0.153,"s":1,"r":0},"env":{"x":-0.007,"y":
       .then(function (r) {
         if (!r.ok) throw new Error();
         var yes = form.querySelector('input[name="Присутність"]:checked');
-        form.reset(); yesBlock.hidden = true;
+        form.reset();
         msg.textContent = yes && yes.value === "Так, буду" ? "Дякуємо! Чекаємо на вас 7 червня 🤍" : "Дякуємо, що повідомили! Нам буде вас бракувати.";
       })
       .catch(function () { msg.textContent = "Не вдалося надіслати. Спробуйте ще раз або напишіть Ірині."; })
