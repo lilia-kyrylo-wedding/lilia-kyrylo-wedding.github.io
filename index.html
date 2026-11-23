@@ -7,14 +7,8 @@
 <meta name="description" content="Запрошуємо на наше весілля 7 червня 2027 року, Pałac Pstrokonie">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Marck+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-  /* Anastasia Script (лише латиниця) — для монограми LK та «&» */
-  @font-face {
-    font-family: "Anastasia Script";
-    src: url("Anastasia%20Script%20Personal%20Use.ttf") format("truetype");
-    font-display: swap;
-  }
   /* ===== Палітра: міняйте лише ці змінні ===== */
   :root {
     --bg: #faf7f2;          /* фон */
@@ -25,8 +19,8 @@
     --accent-soft: #e8ebe2;
     --line: #e4ddd1;
     --serif: "EB Garamond", Georgia, serif;   /* основний текст (Crimson без кирилиці в Google Fonts) */
-    --script: "Marck Script", cursive;   /* заголовки (кирилиця) */
-    --latin-script: "Anastasia Script", "Marck Script", cursive;   /* монограма, & */
+    --script: "Great Vibes", cursive;   /* заголовки, імена */
+    --latin-script: "Great Vibes", cursive;   /* монограма, & */
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -65,7 +59,7 @@
   .monogram {
     width: 92px; height: 92px; border: 1px solid var(--accent); border-radius: 50%;
     display: grid; place-items: center; margin-bottom: 36px;
-    font-family: var(--latin-script); font-size: 44px; color: var(--accent);
+    font-family: var(--latin-script); font-size: 46px; color: var(--accent);
   }
   .kicker { letter-spacing: .3em; text-transform: uppercase; font-size: 14px; color: var(--muted); }
   .names {
@@ -94,7 +88,7 @@
   .wrap { max-width: 720px; margin: 0 auto; text-align: center; }
   h2 {
     font-family: var(--script); font-weight: 400; color: var(--accent);
-    font-size: clamp(42px, 7vw, 58px); margin: 0 0 8px; line-height: 1.1;
+    font-size: clamp(46px, 8vw, 64px); margin: 0 0 8px; line-height: 1.15;
   }
   .ornament { width: 60px; height: 1px; background: var(--accent); margin: 0 auto 30px; opacity: .6; }
   .lead { font-size: clamp(22px, 3.2vw, 27px); font-weight: 300; }
